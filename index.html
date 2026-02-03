@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Swan Oyster Depot - San Francisco's historic seafood counter since 1912. View our fresh menu and live status." />
+    <meta name="theme-color" content="#050505" />
+    
+    <title>Swan Oyster Depot | SF Landmark</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22none%22 stroke=%22%23C5A028%22 stroke-width=%222%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22><circle cx=%2212%22 cy=%225%22 r=%223%22/><line x1=%2212%22 x2=%2212%22 y1=%2222%22 y2=%228%22/><path d=%22M5 12H2a10 10 0 0 0 20 0h-3%22/></svg>">
+
+    <!-- Fonts & Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Playfair Display"', 'serif'],
+              sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            },
+            colors: {
+              gold: {
+                300: '#F0D060',
+                400: '#D4AF37',
+                500: '#C5A028',
+                600: '#B08D1E',
+                700: '#8A6D15',
+              },
+              dark: {
+                950: '#050505',
+                900: '#0A0C10',
+                850: '#12141A',
+                800: '#1A1E26',
+                700: '#252A36',
+              }
+            },
+            backgroundImage: {
+              'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+              'gold-sheen': 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(0,0,0,0) 100%)',
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        background-color: #050505;
+      }
+      .bg-noise {
+        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+        pointer-events: none; z-index: 50; opacity: 0.04;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #050505; }
+      ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+      @keyframes revealUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+      .animate-reveal { animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      
+      /* Simple Loader for pre-React state */
+      #initial-loader {
+        position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+        background: #050505; z-index: 100; transition: opacity 0.5s;
+      }
+      .spinner {
+        width: 40px; height: 40px; border: 3px solid rgba(212, 175, 55, 0.1);
+        border-top-color: #D4AF37; border-radius: 50%; animation: spin 1s linear infinite;
+      }
+      @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-dark-950 text-white antialiased selection:bg-gold-500 selection:text-white overflow-x-hidden">
+    <!-- Initial Loader to prevent black screen while JS parses -->
+    <div id="initial-loader">
+      <div class="flex flex-col items-center gap-4">
+        <div class="spinner"></div>
+        <p style="font-family: serif; color: #D4AF37; letter-spacing: 0.2em; font-size: 12px; text-transform: uppercase;">Loading Depot...</p>
+      </div>
+    </div>
+
+    <div class="bg-noise"></div>
+    <div id="root"></div>
+
+    <!-- Script source without leading slash for better GitHub Pages compatibility -->
+    <script type="module" src="index.tsx"></script>
+
+    <script>
+      // Hide loader once the app starts (React will take over)
+      window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+          const loader = document.getElementById('initial-loader');
+          if (loader) loader.style.opacity = '0';
+          setTimeout(() => loader?.remove(), 500);
+        }, 1000);
+      });
+    </script>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

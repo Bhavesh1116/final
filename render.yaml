@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: swan-oyster-depot
+    env: static
+    buildCommand: npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: API_KEY
+        sync: false # You must enter this value in the Render Dashboard manually for security
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
